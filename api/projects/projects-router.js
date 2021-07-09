@@ -2,8 +2,7 @@
 const express = require('express');
 
 const projects = require(`./projects-model`);
-const middleware = require('./projects-middleware');
-const { validateProject, validateId } = middleware;
+const { validateProject, validateId } = require('./projects-middleware');
 
 const router = express.Router();
 
@@ -16,7 +15,7 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-router.get('/:id', validateId, async (req, res) => {
+router.get('/:id', validateId, (req, res) => {
 	res.status(200).json(req.project);
 });
 
@@ -41,10 +40,26 @@ router.put('/:id', validateId, validateProject, async (req, res, next) => {
 	}
 });
 
-router.delete('/', validateId, async (req, res, next) => {
-	projects.delete(req.projectId);
+router.delete('/:id', validateId, (req, res, next) => {
+	projects.remove(req.projectId)
+		.then(result => {
+			if (result)
+				res.status(200).send();
+			else
+				res.status(400).message("could not be deleted");
+		}, err => next(err));
 });
 
+router.get('/:id/actions', validateId, async (req, res, next) => {
+	try {
+		const result = await projects.getProjectActions(req.projectId);
+		res.status(200).json(result);
+	} catch (err) {
+		next(err);
+	}
+});
+
+// eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
 	console.log("ooh an err", err);
 	res.status(500).json({ message: err.message });

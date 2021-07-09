@@ -6,7 +6,7 @@
         "start": "node index.js",
         "server": "nodemon index.js",
         "dev": "node-dev index.js --notify=false --clear --trace-warnings",
-        "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand --silent",
+        "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand --useStderr --silent",
         "resetdb": "knex migrate:rollback && knex migrate:latest && knex seed:run"
     },
     "repository": {
