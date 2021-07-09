@@ -1,31 +1,35 @@
 const projects = require('./projects-model');
 
-// add middlewares here related to projects
 
-/** @type {import("express").RequestHandler} */
-const validateId = async (req, res, next) => {
-	if (req.params.id) {
-		try {
-			const project = await projects.get(req.params.id);
-			if (project) {
-				req.project = project;
-				req.projectId = req.params.id;
-				next();
-			}
-			else {
-				res.status(404).send("Post not found!");
-			}
+/**
+ * Gets the project specified by the id and attaches it to the request object.
+ * Sends a 404 response if the id is not found
+ * @type {import("express").RequestHandler}
+ * */
+const validateId = (req, res, next) => {
+	const { id } = req.params;
+
+	projects.get(id).then(project => {
+		if (project) {
+			req.project = project;
+			req.projectId = id;
+			next();
 		}
-		catch (err) {
-			next(err);
+		else {
+			res.status(404).send("Post not found!");
 		}
-	}
+	}, err => next(err));
 };
 
-/** @type {import("express").RequestHandler} */
+
+/**
+ * Verifies that the req.body contains all the required properties for a project
+ * @type {import("express").RequestHandler}
+ *  */
 const validateProject = (req, res, next) => {
 	if (req.body) {
 		const { name, description, completed } = req.body;
+
 		if (name && name.length > 0
 			&& description && description.length > 0
 			&& (completed !== undefined || req.method === "POST")) {
