@@ -1,11 +1,7 @@
 const actions = require('./actions-model');
 const projects = require('../projects/projects-model');
 
-/**
- * Gets the action specified by the id and attaches it to the request object.
- * Sends a 404 response if the id is not found
- * @type {import("express").RequestHandler}
- * */
+
 const validateId = async (req, res, next) => {
 	const { id } = req.params;
 
@@ -21,10 +17,7 @@ const validateId = async (req, res, next) => {
 	}, err => next(err));
 };
 
-/**
- * Verifies that the req.body contains all the required properties for an action
- * @type {import("express").RequestHandler}
- *  */
+
 const validateAction = (req, res, next) => {
 	if (req.body) {
 		const { project_id, description, notes, completed } = req.body;
