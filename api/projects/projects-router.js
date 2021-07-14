@@ -50,14 +50,14 @@ const router = express.Router();
 // 		}, err => next(err));
 // });
 
-// router.get('/:id/actions',  async (req, res, next) => {
-// 	try {
-// 		const result = await projects.getProjectActions(req.projectId);
-// 		res.status(200).json(result);
-// 	} catch (err) {
-// 		next(err);
-// 	}
-// });
+router.get('/:id/actions',  async (req, res, next) => {
+	try {
+		const result = await projects.getProjectActions(req.projectId);
+		res.status(200).json(result);
+	} catch (err) {
+		next(err);
+	}
+});
 
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
