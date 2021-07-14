@@ -31,14 +31,14 @@ const router = express.Router();
 // 	}
 // });
 
-// router.put('/:id',  async (req, res, next) => {
-// 	try {
-// 		const result = await projects.update(req.params.id, req.project);
-// 		res.status(200).json(result);
-// 	} catch (err) {
-// 		next(err);
-// 	}
-// });
+router.put('/:id',  async (req, res, next) => {
+	try {
+		const result = await projects.update(req.params.id, req.project);
+		res.status(200).json(result);
+	} catch (err) {
+		next(err);
+	}
+});
 
 router.delete('/:id', (req, res, next) => {
 	projects.remove(req.projectId)
