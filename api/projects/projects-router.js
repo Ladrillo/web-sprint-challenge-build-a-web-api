@@ -6,14 +6,14 @@ const projects = require('./projects-model');
 
 const router = express.Router();
 
-// router.get('/', async (req, res, next) => {
-// 	try {
-// 		const result = await projects.get();
-// 		res.status(200).json(result ?? []);
-// 	} catch (err) {
-// 		next(err)
-// 	}
-// });
+router.get('/', async (req, res, next) => {
+	try {
+		const result = await projects.get();
+		res.status(200).json(result ?? []);
+	} catch (err) {
+		next(err)
+	}
+});
 
 // router.get('/:id',  (req, res) => {
 // 	res.status(200).json(req.project);
