@@ -40,15 +40,15 @@ const router = express.Router();
 // 	}
 // });
 
-// router.delete('/:id', (req, res, next) => {
-// 	projects.remove(req.projectId)
-// 		.then(result => {
-// 			if (result)
-// 				res.status(200).send();
-// 			else
-// 				res.status(400).message("could not be deleted");
-// 		}, err => next(err));
-// });
+router.delete('/:id', (req, res, next) => {
+	projects.remove(req.projectId)
+		.then(result => {
+			if (result)
+				res.status(200).send();
+			else
+				res.status(400).message("could not be deleted");
+		}, err => next(err));
+});
 
 router.get('/:id/actions',  async (req, res, next) => {
 	try {
