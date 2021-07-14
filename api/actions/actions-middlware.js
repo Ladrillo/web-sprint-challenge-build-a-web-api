@@ -2,7 +2,7 @@ const actions = require('./actions-model');
 const projects = require('../projects/projects-model');
 
 
-const validateId = async (req, res, next) => {
+const validateId = (req, res, next) => {
 	const { id } = req.params;
 
 	actions.get(id).then(action => {
