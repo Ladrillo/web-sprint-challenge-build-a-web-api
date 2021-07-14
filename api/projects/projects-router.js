@@ -19,17 +19,17 @@ const router = express.Router();
 // 	res.status(200).json(req.project);
 // });
 
-// router.post('/',  async (req, res, next) => {
-// 	try {
-// 		const result = await projects.insert(req.project);
-// 		if (result)
-// 			res.status(201).json(result);
-// 		else
-// 			res.status(400).send("Unknown fail");
-// 	} catch (err) {
-// 		next(err);
-// 	}
-// });
+router.post('/',  async (req, res, next) => {
+	try {
+		const result = await projects.insert(req.project);
+		if (result)
+			res.status(201).json(result);
+		else
+			res.status(400).send("Unknown fail");
+	} catch (err) {
+		next(err);
+	}
+});
 
 router.put('/:id',  async (req, res, next) => {
 	try {
